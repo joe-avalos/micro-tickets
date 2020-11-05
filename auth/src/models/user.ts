@@ -28,6 +28,16 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+},{
+  toJSON: {
+    transform(doc, ret){
+      ret.id = ret._id
+      delete ret._id
+      delete ret.password
+      // delete ret.__v // versionKey defined below
+    },
+    versionKey: false,
+  }
 })
 
 userSchema.pre('save', async function (done) {
