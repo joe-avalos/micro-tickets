@@ -7,8 +7,7 @@ import {currentUserRouter} from './routes/current-user'
 import {signupRouter} from './routes/signup'
 import {signinRouter} from './routes/signin'
 import {signoutRouter} from './routes/signout'
-import {NotFoundError} from './errors/not-found-error'
-import {errorHandler} from './middleware/error-handling'
+import {errorHandler, NotFoundError} from '@boloyde-gittix/common'
 
 const app = express()
 app.set('trust proxy', true)

@@ -271,6 +271,19 @@
   resolved "https://registry.yarnpkg.com/@bcoe/v8-coverage/-/v8-coverage-0.2.3.tgz#75a2e8b51cb758a7553d6804a5932d7aace75c39"
   integrity sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==
 
+"@boloyde-gittix/common@^1.0.5":
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/@boloyde-gittix/common/-/common-1.0.5.tgz#1cdfc89717fab673542a26a8ba4492737077eeac"
+  integrity sha512-hwouYitt/Y1zEJ8jG4fWBXBrwLRWQeYt7M1AE2AXUnX/PiwArtDdAj0jTolOQNwOcjVoECXOT87DpRvmWcGC1g==
+  dependencies:
+    "@types/cookie-session" "^2.0.41"
+    "@types/express" "^4.17.8"
+    "@types/jsonwebtoken" "^8.5.0"
+    cookie-session "^1.4.0"
+    express "^4.17.1"
+    express-validator "^6.6.1"
+    jsonwebtoken "^8.5.1"
+
 "@cnakazawa/watch@^1.0.3":
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/@cnakazawa/watch/-/watch-1.0.4.tgz#f864ae85004d0fcab6f50be9141c4da368d1656a"

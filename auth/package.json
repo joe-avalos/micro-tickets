@@ -18,6 +18,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@boloyde-gittix/common": "^1.0.5",
     "@types/bcryptjs": "^2.4.2",
     "@types/cookie-session": "^2.0.41",
     "@types/express": "^4.17.8",
