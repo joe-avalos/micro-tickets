@@ -1,10 +1,10 @@
 import express from 'express'
-import {currentUser} from '@boloyde-gittix/common'
+import {requireAuth} from '@boloyde-gittix/common'
 
 const router = express.Router()
 
 router.post('/api/users/signout',
-  currentUser,
+  requireAuth,
   (req, res) => {
     req.session = null
     res.send({})
