@@ -1,7 +1,9 @@
 import request from 'supertest'
+import {randomBytes} from 'crypto'
 
 import {app} from '../../app'
 import {Ticket} from '../../models/ticket'
+import {natsWrapper} from '../../nats-wrapper'
 
 it('should have a route handler listening to /api/tickets for post requests', async () => {
   const response = await request(app)
@@ -49,7 +51,7 @@ it('should return error if an invalid price is provided', async () => {
     .post('/api/tickets')
     .set('Cookie', global.signup())
     .send({
-      title: 'sdafsadfsa',
+      title: 'CONCERT ' + randomBytes(4).toString('hex'),
       price: -10,
     })
     .expect(400)
@@ -57,16 +59,16 @@ it('should return error if an invalid price is provided', async () => {
     .post('/api/tickets')
     .set('Cookie', global.signup())
     .send({
-      title: 'sdfkhsdfkj',
+      title: 'CONCERT ' + randomBytes(4).toString('hex'),
     })
     .expect(400)
-
+  
 })
 
 it('should create a ticket with valid parameters', async () => {
   let tickets = await Ticket.find({})
   expect(tickets.length).toEqual(0)
-  const title = 'sdfkhsdfkj'
+  const title = 'CONCERT ' + randomBytes(4).toString('hex')
   const price = 15.34
   
   await request(app)
@@ -82,4 +84,19 @@ it('should create a ticket with valid parameters', async () => {
   expect(tickets.length).toEqual(1)
   expect(tickets[0].title).toEqual(title)
   expect(tickets[0].price).toEqual(price)
+})
+
+it('should publish a create event', async () => {
+  const title = 'CONCERT ' + randomBytes(4).toString('hex')
+  const price = 15.34
+  
+  await request(app)
+    .post('/api/tickets')
+    .set('Cookie', global.signup())
+    .send({
+      title,
+      price,
+    })
+    .expect(201)
+  expect(natsWrapper.client.publish).toHaveBeenCalled()
 })
