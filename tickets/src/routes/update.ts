@@ -1,6 +1,6 @@
 import express, {Response, Request} from 'express'
 import {body} from 'express-validator'
-import {validateRequest, NotFoundError, NotAuthorizedError, requireAuth} from '@boloyde-gittix/common'
+import {validateRequest, NotFoundError, NotAuthorizedError, requireAuth, BadRequestError} from '@boloyde-gittix/common'
 
 import {Ticket} from '../models/ticket'
 import {natsWrapper} from '../nats-wrapper'
@@ -24,6 +24,10 @@ router.put('/api/tickets/:id',
     const ticket = await Ticket.findById(req.params.id)
     if (!ticket) {
       throw new NotFoundError()
+    }
+    
+    if (ticket.orderId){
+      throw new BadRequestError('Cannot edit a reserved ticket')
     }
     
     if (ticket.userId !== req.currentUser!.id) {
