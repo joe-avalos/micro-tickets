@@ -1,14 +1,22 @@
 import request from 'supertest'
+import mongoose from "mongoose"
+
 import {app} from '../../app'
 import {Ticket} from '../../models/ticket'
 
-it('should fetch the order', async () => {
-  // Create ticket
+const buildTicket = async () => {
   const ticket = Ticket.build({
+    id: mongoose.Types.ObjectId().toHexString(),
     title: 'Concert',
     price: 20,
   })
   await ticket.save()
+  return ticket
+}
+
+it('should fetch the order', async () => {
+  // Create ticket
+  const ticket = await buildTicket()
   
   const user = global.signup()
   
@@ -31,11 +39,7 @@ it('should fetch the order', async () => {
 
 it('should return 401 when other user tries to fetch the order', async () => {
   // Create ticket
-  const ticket = Ticket.build({
-    title: 'Concert',
-    price: 20,
-  })
-  await ticket.save()
+  const ticket = await buildTicket()
   
   // Make request to build an order with ticket
   const {body: order} = await request(app)

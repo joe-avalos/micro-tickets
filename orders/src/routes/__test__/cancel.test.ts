@@ -1,18 +1,25 @@
 import request from 'supertest'
+import mongoose from 'mongoose'
+
 import {app} from '../../app'
 import {Ticket} from '../../models/ticket'
 import {OrderStatus} from '../../models/order'
 import {natsWrapper} from '../../nats-wrapper'
 
-it('should mark the order as cancelled', async () => {
+const createTicketAndUser = async ()=>{
   // Create ticket
   const ticket = Ticket.build({
+    id: new mongoose.Types.ObjectId().toHexString(),
     title: 'Concert',
     price: 20,
   })
-  
   await ticket.save()
   const user = global.signup()
+  return {ticket, user}
+}
+
+it('should mark the order as cancelled', async () => {
+  const {ticket, user} = await createTicketAndUser()
   
   // Make request to build an order with ticket
   const {body: order} = await request(app)
@@ -32,14 +39,7 @@ it('should mark the order as cancelled', async () => {
 })
 
 it('should emit a order cancelled event', async ()=>{
-  // Create ticket
-  const ticket = Ticket.build({
-    title: 'Concert',
-    price: 20,
-  })
-  
-  await ticket.save()
-  const user = global.signup()
+  const {ticket, user} = await createTicketAndUser()
   
   // Make request to build an order with ticket
   const {body: order} = await request(app)
