@@ -1,6 +1,8 @@
 import express, {Response, Request} from 'express'
 import {NotAuthorizedError, NotFoundError, requireAuth} from '@boloyde-gittix/common'
 import {Order, OrderStatus} from '../models/order'
+import {OrderCancelledPublisher} from '../events/publishers/order-cancelled-publisher'
+import {natsWrapper} from '../nats-wrapper'
 
 const router = express.Router()
 
@@ -17,6 +19,14 @@ router.patch('/api/orders/:orderId',
     }
     order.status = OrderStatus.Cancelled
     await order.save()
+    
+    await new OrderCancelledPublisher(natsWrapper.client).publish({
+      id: order.id,
+      ticket: {
+        id: order.ticket.id,
+      },
+    })
+    
     res.send(order)
   })
 
