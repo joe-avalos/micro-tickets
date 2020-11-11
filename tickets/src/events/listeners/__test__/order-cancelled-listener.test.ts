@@ -42,6 +42,4 @@ it('should update the ticket, publish the event and ack the message', async () =
   expect(updatedTicket!.orderId).toBeUndefined()
   expect(msg.ack).toHaveBeenCalled()
   expect(natsWrapper.client.publish).toHaveBeenCalled()
-  
-  
 })

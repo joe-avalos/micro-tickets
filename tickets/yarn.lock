@@ -272,9 +272,9 @@
   integrity sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==
 
 "@boloyde-gittix/common@^1.0.11":
-  version "1.0.13"
-  resolved "https://registry.yarnpkg.com/@boloyde-gittix/common/-/common-1.0.13.tgz#f151cc69cff9a6a0d3967b2e709a8538d3362b62"
-  integrity sha512-jv8PgN1N20PqtqY9UnVR41IW3afSE61M2rSMns45Vc7STjdhDpgRUiT7MmzrvyX90Yvc8CKVdjhtUsENjCPDkw==
+  version "1.0.14"
+  resolved "https://registry.yarnpkg.com/@boloyde-gittix/common/-/common-1.0.14.tgz#d64083d87680a3254de71caa1e2fccbe66e6b16d"
+  integrity sha512-itA3ddCHgfEBLEOJRY7dkSKgqBULSAno7yWBqZktxVZLRj9at3GUgeoaxrJrns6V2ZAKh2wIPp0bUSEP3OC1oA==
   dependencies:
     "@types/cookie-session" "^2.0.41"
     "@types/express" "^4.17.8"
